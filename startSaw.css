@@ -1,0 +1,20 @@
+img
+{
+	width: 15%;
+	margin-left: 0%;
+	margin-right:100%
+}
+.navbar {
+  width: 100%;
+  border-top: auto;
+  display: block;
+  font-size: 15px;
+}
+li a {
+	color: #9B9CA3;
+}
+i {
+	color: #9B9CA3;
+	font-size: 35px;
+}
+
