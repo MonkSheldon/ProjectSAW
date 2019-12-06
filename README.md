@@ -1,2 +1,2 @@
 # ProjectSAW
-Members: Frazzo, Pagnoni, Salvi
+Members: Pagnoni, Salvi
