@@ -1,0 +1,24 @@
+h3 {
+margin-top: 5%;
+font-family: "Courier New";
+text-align: center;
+}
+
+input{
+border-radius: 50px 50px 50px 50px;
+width: 30%; 
+text-align: center;
+display: block;
+margin:auto;
+}
+
+input[type=Submit]{
+background-color: #cf4245;
+color: black;
+}
+
+footer{
+background-color: #cfcfcf;
+font-family: "Courier New";
+margin-top: 1%;
+}
