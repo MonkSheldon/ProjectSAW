@@ -2,6 +2,7 @@ CREATE TABLE cliente (
 	idCliente      INT AUTO_INCREMENT PRIMARY KEY,
     email          VARCHAR(30) UNIQUE,
     pword          VARCHAR(41) NOT NULL,
+    cookie         TIMESTAMP,
     nome           VARCHAR(20) NOT NULL,
     cognome        VARCHAR(20) NOT NULL,
     telefono       VARCHAR(15)
