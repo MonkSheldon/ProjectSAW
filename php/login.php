@@ -1,47 +1,73 @@
 <?php
+	// TODO: change credentials in the db/mysql_credentials.php file
+	//BISOGNA METTERE LE SESSIONI
 
-// TODO: change credentials in the db/mysql_credentials.php file
-//BISOGNA METTERE LE SESSIONI
-
-require_once('db/mysql_credentials.php');
-
-// Add session control, header, ...
-// Open DBMS Server connection
-
-// Get credentials from $_POST['email'] and $_POST['pass']
-// but do it IN A SECURE WAY
-$email = $_POST['email']; // replace null with $_POST and sanitization
-$pass = $_POST['pass']; // replace null with $_POST and sanitization
-
-if(	!isset($_POST['email'])||empty($_POST['email'])||
-	!isset($_POST['pass'])||empty($_POST['pass']))
-	{
-		header('Location: loginHTML.php?err=3');
-			exit();
+	// Add session control, header, ...
+	// Open DBMS Server connection
+	if (!isset($_POST['email']) || !isset($_POST['pass'])) {
+		header('Location: loginHTML.php?err=1');
+		exit();
 	}
-function login($email, $pass, $db_connection) {
-	$email=trim($email);
-	$pass=sha1(trim($pass));
-	
-	$query="SELECT * FROM cliente WHERE email='".$email."' AND pword='".$pass."'" ;
-	
-	$result=mysqli_query($db_connection,$query);
-			
-	if (mysqli_affected_rows($db_connection)==1) {				
-		return true;
+
+	// Get credentials from $_POST['email'] and $_POST['pass']
+	// but do it IN A SECURE WAY
+	$email = trim($_POST['email']); // replace null with $_POST and sanitization
+	$pass = trim($_POST['pass']); // replace null with $_POST and sanitization
+	$cookie = $_POST['remember-me'];
+
+	if (empty($email) || empty($pass)) {
+		header('Location: loginHTML.php?err=1');
+		exit();
+	}
+
+	require_once('db/mysql_credentials.php');
+
+	function login($email, $pass, $cookie, $db_connection) {
+		$pass = sha1($pass);
+
+		if ($stmt = mysqli_prepare($db_connection,
+						"SELECT idCliente, email, nome, cognome
+							FROM cliente
+							WHERE email=? AND
+								pword=?")) {
+			mysqli_stmt_bind_param($stmt, "ss", $email, $pass);
+			$result = mysqli_stmt_execute($stmt);
+			if ($result) {
+				mysqli_stmt_store_result($stmt);
+				$norows = mysqli_stmt_num_rows($stmt);
+				if ($norows == 1) {
+					mysqli_stmt_bind_result($stmt, $id, $em, $nome, $cognome);
+					mysqli_stmt_fetch($stmt);
+					mysqli_stmt_free_result($stmt);
+					mysqli_stmt_close($stmt);
+					if ($cookie == "remember-me") {
+						$time = time() + 3600;
+						$result = mysqli_query($db_connection, "
+							UPDATE cliente
+								SET cookie='". $time ."'
+								WHERE idCliente='". $id ."'");
+						if (!$result)
+							return null;
+						setcookie("id", $id, $time);
+					}
+					return array($id, $em, $nome, $cognome);
+				}
+			}
+		}
+		return null;
+	}
+
+	// Get user from login
+	$user = login($email, $pass, $cookie, $con);
+
+	mysqli_close($con);
+
+	if ($user) {
+		// Welcome
+		createSession($user[0], $user[1], $user[2], $user[3]);
+		header('Location: index.php');
 	} else {
-		return false;
+		// Error message
+		header('Location: loginHTML.php?err=3');
 	}
-}
-
-// Get user from login
-$user = login($email, $pass, $con);
-
-if ($user) {
-    // Welcome message
-    echo "Welcome!";
-} else {
-    // Error message
-    header('Location: loginHTML.php?err=4');
-}
 ?>

@@ -1,6 +1,4 @@
 <?php
-	require_once('db/mysql_credentials.php');
-
 	if (!isset($_POST['email']) || !isset($_POST['firstname']) ||
 		!isset($_POST['lastname']) || !isset($_POST['pass']) ||
 		!isset($_POST['confirm']) || !isset($_POST['telephone'])) {
@@ -24,6 +22,8 @@
 		exit();
 	}
 
+	require_once('db/mysql_credentials.php');
+
 	function insert_user($email, $first_name, $last_name, $password, $password_confirm, $telephone, $db_connection) {
 		if ($password != $password_confirm)
 			return false;
@@ -31,13 +31,13 @@
 		$password = sha1($password);
 
 		if ($stmt = mysqli_prepare($db_connection, "INSERT INTO cliente
-					(idCliente, email, pword, nome, cognome, telefono)
-					VALUES (null, ?, ?, ?, ?, ?)")) {
+					(idCliente, email, pword, cookie, nome, cognome,
+					telefono) VALUES (null, ?, ?, null, ?, ?, ?)")) {
 			mysqli_stmt_bind_param($stmt, "sssss", $email, $password,
 									$first_name, $last_name, $telephone);
 			$result = mysqli_stmt_execute($stmt);
 			mysqli_stmt_close($stmt);
-			if ($result) {				
+			if ($result) {
 				return true;
 			}
 		}
@@ -51,7 +51,7 @@
 
 	if ($successful) {
 		// Success message
-		echo "$email registered successfully!";
+		header('Location: inserimento.php?msg=1');
 	} else {
 		// Error message
 		header('Location: inserimento.php?err=2');//non è stato possibile inserire, perché l'email è gia esistente,

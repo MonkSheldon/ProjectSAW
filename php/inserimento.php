@@ -3,22 +3,20 @@
 	myHeader("REGISTRAZIONE", false);
 ?>
 	<h3>Crea un account VeichLe resize</h3>
-	<?php 
-		if (count($_GET) > 0) {
-			$err = $_GET['err'];
-			if ($err == "1") { ?>
-				<div class="alert alert-danger alert-dismissible fade show">
-					I campi con * sono obbligatori
-				</div>
+<?php
+	if (count($_GET) > 0) {
+		if ($_GET['msg'] == "1") { ?>
+			<div class="alert alert-success">
+				<strong>Registrazione andata a buon fine!</strong> 
+				Ora puoi accedere al tuo account effetuando il <a href="loginHTML.php">login</a>
+			</div>
 	<?php
-			}
-			elseif ($err == "2") { ?>	
-				<div class="alert alert-danger alert-dismissible fade show">
-					Utente è gia inserito con questa email
-				</div>
-	<?php
-			}
-		} ?>
+		}
+		else {
+			controlError($_GET['err']);
+		}
+	}
+?>
 	<form action="registration.php" method="POST">
 		<!--<label for="firstname">First name *</label>-->
 		<br><input type="text" name="firstname" placeholder="firstname *" required ><br>
