@@ -64,6 +64,7 @@
 
 	if ($user) {
 		// Welcome
+		require_once('funzione.php');
 		createSession($user[0], $user[1], $user[2], $user[3]);
 		header('Location: index.php');
 	} else {
