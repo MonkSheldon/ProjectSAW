@@ -1,15 +1,16 @@
 CREATE TABLE cliente (
-	idCliente      INT AUTO_INCREMENT PRIMARY KEY,
+    idCliente      INT AUTO_INCREMENT PRIMARY KEY,
     email          VARCHAR(30) UNIQUE,
     pword          VARCHAR(41) NOT NULL,
     cookie         INT,
+    admin          BOOLEAN NOT NULL DEFAULT FALSE,
     nome           VARCHAR(20) NOT NULL,
     cognome        VARCHAR(20) NOT NULL,
     telefono       VARCHAR(15)
 );
 
 CREATE TABLE ordine (
-	idOrdine       INT AUTO_INCREMENT PRIMARY KEY,
+    idOrdine       INT AUTO_INCREMENT PRIMARY KEY,
     dataOra        DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     idCliente      INT NOT NULL,
     noArticoli     INT NOT NULL,
@@ -18,17 +19,12 @@ CREATE TABLE ordine (
     FOREIGN KEY (idCliente) REFERENCES cliente(idCliente)
 );
 
-CREATE TABLE categoria (
-    idCategoria    INT AUTO_INCREMENT PRIMARY KEY,
-    nome           VARCHAR(20) UNIQUE,
-    tipoMezzo      ENUM('marea', 'aerea', 'terrea')
-);
-
 CREATE TABLE modello (
-	nome           VARCHAR(20),
+    idModello      INT AUTO_INCREMENT PRIMARY KEY,
+    nome           VARCHAR(20),
     marca          VARCHAR(20),
-    idCategoria    INT NOT NULL,
     tipoMotore     ENUM('benzina', 'gasolio', 'elettrico', 'velocipede') NOT NULL,
+    tipoMezzo      ENUM('marea', 'aerea', 'terrea') NOT NULL,
     noPasseggeri   INT NOT NULL,
     peso           DECIMAL(5, 2) NOT NULL,
     potenza        DECIMAL(5, 2) NOT NULL,
@@ -36,17 +32,23 @@ CREATE TABLE modello (
     larghezza      DECIMAL(5, 2) NOT NULL,
     lunghezza      DECIMAL(5, 2) NOT NULL,
     altezza        DECIMAL(5, 2) NOT NULL,
-    PRIMARY KEY(nome, marca),
-    FOREIGN KEY (idCategoria) REFERENCES categoria(idCategoria)
+    UNIQUE(nome, marca)
+);
+
+CREATE TABLE cliente_modello (
+    idCliente      INT NOT NULL,
+    idModello      INT NOT NULL,
+    FOREIGN KEY (idCliente) REFERENCES cliente(idCliente),
+    FOREIGN KEY (idModello) REFERENCES modello(idModello),
+    PRIMARY KEY(idCliente, idModello)
 );
 
 CREATE TABLE veicolo (
-	targa          CHAR(7) PRIMARY KEY,
+    targa          CHAR(7) PRIMARY KEY,
     idOrdine       INT NOT NULL,
-    nome           VARCHAR(20) NOT NULL,
-    marca          VARCHAR(20) NOT NULL,
+    idModello      INT NOT NULL,
     colore         VARCHAR(20) NOT NULL,
     prezzoFinale   DECIMAL(5, 2) NOT NULL,
-    FOREIGN KEY (nome, marca) REFERENCES modello(nome, marca),
-    FOREIGN KEY (idOrdine) REFERENCES ordine(idOrdine)
+    FOREIGN KEY (idOrdine) REFERENCES ordine(idOrdine),
+    FOREIGN KEY (idModello) REFERENCES modello(idModello)
 );
