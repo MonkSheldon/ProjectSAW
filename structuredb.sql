@@ -24,7 +24,7 @@ CREATE TABLE modello (
     nome           VARCHAR(20),
     marca          VARCHAR(20),
     tipoMotore     ENUM('benzina', 'gasolio', 'elettrico', 'velocipede') NOT NULL,
-    tipoMezzo      ENUM('marea', 'aerea', 'terrea') NOT NULL,
+    tipoModello    ENUM('macchina', 'moto', 'treno', 'nave', 'aereo', 'bicicletta') NOT NULL,
     noPasseggeri   INT NOT NULL,
     peso           DECIMAL(5, 2) NOT NULL,
     potenza        DECIMAL(5, 2) NOT NULL,
