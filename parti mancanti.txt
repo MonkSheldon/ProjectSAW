@@ -1,0 +1,8 @@
+hai dimenticato la password?
+la pagina ordini: utente che accede può vedere i suoi ordini cronologicamente
+carrello:
+procedura ordine lato server
+ordini dal punto di vista dell'admin
+grafica
+testing
+javascript
