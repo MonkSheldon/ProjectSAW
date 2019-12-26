@@ -1,7 +1,4 @@
 <?php
-	// TODO: change credentials in the db/mysql_credentials.php file
-	//BISOGNA METTERE LE SESSIONI
-
 	// Add session control, header, ...
 	// Open DBMS Server connection
 	if (!isset($_POST['email']) || !isset($_POST['pass'])) {
@@ -26,7 +23,7 @@
 		$pass = sha1($pass);
 
 		if ($stmt = mysqli_prepare($db_connection,
-						"SELECT idCliente, email, nome, cognome
+						"SELECT idCliente, email, nome, cognome, telefono
 							FROM cliente
 							WHERE email=? AND
 								pword=?")) {
@@ -36,7 +33,7 @@
 				mysqli_stmt_store_result($stmt);
 				$norows = mysqli_stmt_num_rows($stmt);
 				if ($norows == 1) {
-					mysqli_stmt_bind_result($stmt, $id, $em, $nome, $cognome);
+					mysqli_stmt_bind_result($stmt, $id, $em, $nome, $cognome, $tel);
 					mysqli_stmt_fetch($stmt);
 					mysqli_stmt_free_result($stmt);
 					mysqli_stmt_close($stmt);
@@ -50,7 +47,7 @@
 							return null;
 						setcookie("id", $id, $time);
 					}
-					return array($id, $em, $nome, $cognome);
+					return array($id, $em, $nome, $cognome, $tel);
 				}
 			}
 		}
@@ -65,7 +62,7 @@
 	if ($user) {
 		// Welcome
 		require_once('funzione.php');
-		createSession($user[0], $user[1], $user[2], $user[3]);
+		sessionUtente($user[0], $user[1], $user[2], $user[3], $user[4]);
 		header('Location: index.php');
 	} else {
 		// Error message

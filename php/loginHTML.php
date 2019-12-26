@@ -5,7 +5,7 @@
 	if (isset($_COOKIE['id'])) {
 		require_once('db/mysql_credentials.php');
 		if ($stmt = mysqli_prepare($con,
-						"SELECT idCliente, email, nome, cognome
+						"SELECT idCliente, email, nome, cognome, telefono
 							FROM cliente
 							WHERE idCliente=? AND
 								cookie>'". time(). "'")) {
@@ -15,11 +15,11 @@
 				mysqli_stmt_store_result($stmt);
 				$norows = mysqli_stmt_num_rows($stmt);
 				if ($norows == 1) {
-					mysqli_stmt_bind_result($stmt, $id, $em, $nome, $cognome);
+					mysqli_stmt_bind_result($stmt, $id, $em, $nome, $cognome, $tel);
 					mysqli_stmt_fetch($stmt);
 					mysqli_stmt_free_result($stmt);
 					mysqli_stmt_close($stmt);
-					createSession($id, $em, $nome, $cognome);
+					sessionUtente($id, $em, $nome, $cognome, $tel);
 					header('Location: index.php');
 				}
 			}
@@ -42,6 +42,7 @@
 			<label for="remember-me">Remember me</label>
 		</div>
 	</form>
+	<a href="forgotPwdHTML.php">Recupera la password</a>
 <?php
 	include("../html/footer.html");
 ?>

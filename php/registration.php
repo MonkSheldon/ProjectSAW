@@ -1,26 +1,6 @@
 <?php
-	if (!isset($_POST['email']) || !isset($_POST['firstname']) ||
-		!isset($_POST['lastname']) || !isset($_POST['pass']) ||
-		!isset($_POST['confirm']) || !isset($_POST['telephone'])) {
-		header("Location: inserimento.php?err=1");
-		exit();
-	}
-
-	// Get values from $_POST, but do it IN A SECURE WAY
-	$email = trim($_POST['email']); // replace null with $_POST and sanitization
-	$first_name = trim($_POST['firstname']); // replace null with $_POST and sanitization
-	$last_name = trim($_POST['lastname']); // replace null with $_POST and sanitization
-	$password = trim($_POST['pass']); // replace null with $_POST and sanitization
-	$password_confirm = trim($_POST['confirm']); // replace null with $_POST and sanitization
-	$telephone = trim($_POST['telephone']);
-
-	// Get additional values from $_POST, but do it IN A SECURE WAY
-	// If you have additional values, change functions params accordingly
-	if (empty($email) || empty($first_name) || empty($last_name) ||
-		empty($password) || empty($password_confirm)) {
-		header("Location: inserimento.php?err=1");
-		exit();
-	}
+	require_once('funzione.php');
+	$valuesUtente = checkValuesUtente("inserimento");
 
 	require_once('db/mysql_credentials.php');
 
@@ -45,7 +25,12 @@
 	}
 
 	// Get user from login
-	$successful = insert_user($email, $first_name, $last_name, $password, $password_confirm, $telephone, $con);
+	$successful = insert_user($valuesUtente['email'],
+								$valuesUtente['first_name'],
+								$valuesUtente['last_name'],
+								$valuesUtente['password'],
+								$valuesUtente['password_confirm'],
+								$valuesUtente['telephone'], $con);
 
 	mysqli_close($con);
 

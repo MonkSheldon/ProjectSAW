@@ -1,4 +1,6 @@
 <?php
+    require_once('funzione.php');
+    checkSession();
     if (isset($_COOKIE['id']))
         setcookie("id", "", time() - 3600);
     session_start();
