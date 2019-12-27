@@ -3,7 +3,7 @@ CREATE TABLE cliente (
     email          VARCHAR(30) UNIQUE,
     pword          VARCHAR(41) NOT NULL,
     cookie         INT,
-    isAdmin        BOOLEAN NOT NULL DEFAULT FALSE,
+    isAdmin        TINYINT NOT NULL DEFAULT 0,
     nome           VARCHAR(20) NOT NULL,
     cognome        VARCHAR(20) NOT NULL,
     telefono       VARCHAR(15)
