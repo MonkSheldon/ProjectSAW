@@ -1,8 +1,12 @@
 <?php
-	function checkSession() {
+	function checkSession($isAdmin) {
 		session_start();
 		if (!isset($_SESSION['id'])) {
 			header('Location: login.php');
+			exit();
+		}
+		if ($isAdmin && $_SESSION['admin'] == 0) {
+			controlError("7");
 			exit();
 		}
 	//manca la funzione sessione per il carrello
@@ -70,6 +74,9 @@
 					break;
 					case "6":
 						echo "Momentaneamente abbiamo qualche problema con la reimpostazione della password. Riprova più tardi, ci dispiace per il disagio";
+					break;
+					case "7":
+						echo "Non hai i premessi per visualizzare questa pagina";
 					break;
 				} ?>
 			</div>
@@ -189,10 +196,11 @@
 		exit();
 	}
 
-	function sessionUtente($id, $email, $nome, $cognome, $telefono) {
+	function sessionUtente($id, $email, $admin, $nome, $cognome, $telefono) {
 		session_start();
 		$_SESSION['id'] = $id;
 		$_SESSION['email'] = $email;
+		$_SESSION['admin'] = $admin;
 		$_SESSION['nome'] = $nome;
 		$_SESSION['cognome'] = $cognome;
 		$_SESSION['telefono'] = $telefono;

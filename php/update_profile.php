@@ -1,6 +1,6 @@
 <?php
     require_once('funzione.php');
-    checkSession();
+    checkSession(false);
     $valuesUtente = checkValuesUtente("show_profile");
 
     // Get value from $_SESSION

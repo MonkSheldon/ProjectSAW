@@ -1,6 +1,6 @@
 <?php
     require_once("funzione.php");
-    checkSession();
+    checkSession(false);
     myHeader("CAMBIA PASSWORD", true);
     
     if (count($_GET) > 0) {

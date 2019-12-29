@@ -23,7 +23,7 @@
 		$pass = sha1($pass);
 
 		if ($stmt = mysqli_prepare($db_connection,
-						"SELECT idCliente, email, nome, cognome, telefono
+						"SELECT idCliente, email, isAdmin, nome, cognome, telefono
 							FROM cliente
 							WHERE email=? AND
 								pword=?")) {
@@ -33,7 +33,7 @@
 				mysqli_stmt_store_result($stmt);
 				$norows = mysqli_stmt_num_rows($stmt);
 				if ($norows == 1) {
-					mysqli_stmt_bind_result($stmt, $id, $em, $nome, $cognome, $tel);
+					mysqli_stmt_bind_result($stmt, $id, $em, $admin, $nome, $cognome, $tel);
 					mysqli_stmt_fetch($stmt);
 					mysqli_stmt_free_result($stmt);
 					mysqli_stmt_close($stmt);
@@ -47,7 +47,7 @@
 							return null;
 						setcookie("id", $id, $time);
 					}
-					return array($id, $em, $nome, $cognome, $tel);
+					return array($id, $em, $admin, $nome, $cognome, $tel);
 				}
 			}
 		}
@@ -62,7 +62,7 @@
 	if ($user) {
 		// Welcome
 		require_once('funzione.php');
-		sessionUtente($user[0], $user[1], $user[2], $user[3], $user[4]);
+		sessionUtente($user[0], $user[1], $user[2], $user[3], $user[4], $user[5]);
 		header('Location: index.php');
 	} else {
 		// Error message

@@ -1,6 +1,6 @@
 <?php
     require_once('funzione.php');
-    checkSession();
+    checkSession(false);
     myHeader("ORDINI", true);
 
     require_once('db/mysql_credentials.php');

@@ -11,8 +11,8 @@
 		$password = sha1($password);
 
 		if ($stmt = mysqli_prepare($db_connection, "INSERT INTO cliente
-					(idCliente, email, pword, cookie, nome, cognome,
-					telefono) VALUES (null, ?, ?, null, ?, ?, ?)")) {
+					(idCliente, email, pword, cookie, isAdmin, nome, cognome,
+					telefono) VALUES (null, ?, ?, null, default, ?, ?, ?)")) {
 			mysqli_stmt_bind_param($stmt, "sssss", $email, $password,
 									$first_name, $last_name, $telephone);
 			$result = mysqli_stmt_execute($stmt);

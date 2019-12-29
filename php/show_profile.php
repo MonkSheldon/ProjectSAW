@@ -1,6 +1,6 @@
 <?php
     require_once('funzione.php');
-    checkSession();
+    checkSession(false);
     if (!isset($_GET['id']) || $_GET['id'] != $_SESSION['id']) {
         header('Location: login.php'); //da vedere
         exit();

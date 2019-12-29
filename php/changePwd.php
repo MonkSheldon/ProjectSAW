@@ -1,6 +1,6 @@
 <?php
     require_once('funzione.php');
-    checkSession();
+    checkSession(false);
 
     if (!isset($_POST['pass']) || !isset($_POST['newpass']) ||
         !isset($_POST['confirm'])) {
