@@ -20,5 +20,4 @@ cosa manca :
     es: nel file funzione.php c'è l'if degli errori
 4. javaScript
 5. garifca
-    LA NAVBAR DEVE SPARIRE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 6. testing :)
