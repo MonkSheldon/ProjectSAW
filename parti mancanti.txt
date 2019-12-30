@@ -13,6 +13,7 @@ javascript
 
 all'alba del 29 12 2019 
 cosa manca :
+0. ordine effetivo
 1. fare pagina degli oridni con tutti i relativi pulsanti
     annulla ordine, conferma ordine 
 2. unire i file!
