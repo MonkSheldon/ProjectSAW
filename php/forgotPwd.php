@@ -16,16 +16,16 @@
     function generateRandomString($length) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $randomString = '';
-        for ($i = 0; $i < $length; $i++) {
+        for ($i = 0; $i < $length; $i++)
             $randomString .= $characters[rand(0, strlen($characters) - 1)];
-        }
         return $randomString;
     }
 
     function update_pwd($email, $db_connection) {
         $pwdOriginal = generateRandomString(8);
         $pwd = sha1($pwdOriginal);
-        if ($stmt = mysqli_prepare($db_connection, "UPDATE cliente
+        if ($stmt = mysqli_prepare($db_connection, "
+                UPDATE cliente
                     SET pword=?
                     WHERE email=?")) {
             mysqli_stmt_bind_param($stmt, "ss", $pwd, $email);
@@ -42,14 +42,14 @@
     mysqli_close($con);
 
     if ($success) {
-        // Success message
+        //Success message
         require 'class.phpmailer.php';
         $mail = new PHPMailer();
         $mail->isSMTP();
         $mail->SMTPAuth = true;
         $mail->Host = 'smtp.libero.it';
         $mail->Username = 'pagnonilorenzo@libero.it';
-        $mail->Password = 'Loren1998';
+        $mail->Password = 'Pagno1998';
         $mail->setFrom('pagnonilorenzo@libero.it', 'Site');
         $mail->addAddress($email, $email);
         $mail->Subject = 'Site - Reimpostazione password';
