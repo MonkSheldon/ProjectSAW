@@ -13,7 +13,6 @@ CREATE TABLE ordine (
     idOrdine       INT AUTO_INCREMENT PRIMARY KEY,
     dataOra        DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     idCliente      INT NOT NULL,
-    sconto         DECIMAL(4, 2) NOT NULL DEFAULT 0.0,
     UNIQUE(dataOra, idCliente),
     FOREIGN KEY (idCliente) REFERENCES cliente(idCliente)
 );
@@ -47,7 +46,6 @@ CREATE TABLE veicolo (
     idOrdine       INT NOT NULL,
     idModello      INT NOT NULL,
     colore         VARCHAR(20) NOT NULL,
-    prezzoFinale   DECIMAL(5, 2) NOT NULL,
     FOREIGN KEY (idOrdine) REFERENCES ordine(idOrdine),
     FOREIGN KEY (idModello) REFERENCES modello(idModello)
 );
