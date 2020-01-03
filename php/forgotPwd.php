@@ -3,24 +3,14 @@
         header('Location: forgotPwdHTML.php?err=1');
         exit();
     }
-
     $email = trim($_POST['email']);
-
     if (empty($email)) {
         header('Location: forgotPwdHTML.php?err=1');
         exit();
     }
-
     require_once('db/mysql_credentials.php');
 
-    function generateRandomString($length) {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $randomString = '';
-        for ($i = 0; $i < $length; $i++)
-            $randomString .= $characters[rand(0, strlen($characters) - 1)];
-        return $randomString;
-    }
-
+   
     function update_pwd($email, $db_connection) {
         $pwdOriginal = generateRandomString(8);
         $pwd = sha1($pwdOriginal);
@@ -36,11 +26,8 @@
         }
         return null;
     }
-
     $success = update_pwd($email, $con);
-
     mysqli_close($con);
-
     if ($success) {
         //Success message
         require 'class.phpmailer.php';
@@ -63,3 +50,6 @@
         header("Location: forgotPwdHTML.php?err=5");
     }
 ?>
+
+
+

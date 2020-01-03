@@ -1,7 +1,18 @@
 <?php
 	require_once("funzione.php");
 	myHeader("INDEX", true);
+	
 ?>
+
+<br><h3>Parcheggi cari? 
+	Stufo di dimenticare dove hai posteggiato il tuo aereo? </h3><br>
+<h5 id="myh5">
+	VeichLe Resize è una strat-up innovativa genovese, che si occupa di introdurre veicoli di ogni genere ridimensionabili.
+	Così da evitare l'inquinamento visivo di veicoli di ogni genere nelle strade.
+	Infatti Veichle Resize dispone di una vasta gamma di prodotti, dai macchine agli aerei, dalle biciclette ai treni!
+	... tranquillo, non rimarrai schiacciato all'interno dei veicoli, i nostri ingegneri si sono occupati dei miglior controlli su questo.
+</h5>
+
 	<div class="container-fluid" style="width: 100%; height:35%;">
 		<div class="row">
 		<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -48,18 +59,23 @@
 		</div>
 </div>
 <br><h2>Veicoli</h2><br>
+
 <div class="card-columns">
 	<?php
 		$veicoli = array("aereo", "bici", "moto", "macchina", "nave", "treno");
 		foreach ($veicoli as $veicolo) { ?>
 			<div class="card" style="width: 18rem">
-				<img class="card-img-top" src="../images/vechicles/<?php echo $veicolo; ?>.jpg" alt="Card image cap">
+				<a href="products.php?veicolo=<?php echo $veicolo; ?>"><img class="card-img-top" src="../images/vechicles/<?php echo $veicolo; ?>.jpg" alt="Card image cap">
 					<div class="card-body">
-						<h5 class="card-title"><?php echo ucfirst($veicolo); ?></h5>
+						<h4 class="card-title"><?php echo ucfirst($veicolo); ?></h4>
 						<p class="card-text">Dinanzi a me non fuor cose create se non etterne, e io etterno duro. Lasciate ogni speranza, voi ch'intrate</p>
 					</div>
 			</div>
 	<?php
 		} ?>
  </div>	
+
+ <a href="forgotPwdHTML.php"> Non riesci ad accedere? </a>
+ <!--<a href="searchHTML.php"> ricerca Modello </a>-->
+
  <?php include('../html/footer.html');?>
