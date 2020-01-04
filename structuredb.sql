@@ -30,7 +30,7 @@ CREATE TABLE modello (
     larghezza      DECIMAL(5, 2) NOT NULL,
     lunghezza      DECIMAL(5, 2) NOT NULL,
     altezza        DECIMAL(5, 2) NOT NULL,
-    colore      `  VARCHAR(7) NOT NULL,
+    colore         VARCHAR(7) NOT NULL,
     UNIQUE(nome, marca)
 );
 
