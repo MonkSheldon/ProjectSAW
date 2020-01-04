@@ -30,6 +30,7 @@ CREATE TABLE modello (
     larghezza      DECIMAL(5, 2) NOT NULL,
     lunghezza      DECIMAL(5, 2) NOT NULL,
     altezza        DECIMAL(5, 2) NOT NULL,
+    colore      `  VARCHAR(7) NOT NULL,
     UNIQUE(nome, marca)
 );
 
@@ -45,7 +46,6 @@ CREATE TABLE veicolo (
     targa          CHAR(7) PRIMARY KEY,
     idOrdine       INT NOT NULL,
     idModello      INT NOT NULL,
-    colore         VARCHAR(20) NOT NULL,
     FOREIGN KEY (idOrdine) REFERENCES ordine(idOrdine),
     FOREIGN KEY (idModello) REFERENCES modello(idModello)
 );
