@@ -1,6 +1,6 @@
 la pagina ordini: utente che accede può vedere i suoi ordini cronologicamente 
-carrello
-procedura ordine lato server
+carrello FATTO
+procedura ordine lato server FATTO
 ordini e prodotti dal punto di vista dell'admin, inserimento modelli c'è, ma manca l 'unione! 
 distinzione tra sessione utente o amministratore, e controllo del nome della pagina 
 motore di ricerca interno 
