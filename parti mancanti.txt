@@ -1,4 +1,4 @@
-la pagina ordini: utente che accede può vedere i suoi ordini cronologicamente 
+la pagina ordini: utente che accede può vedere i suoi ordini cronologicamente FATTO
 carrello FATTO
 procedura ordine lato server FATTO
 ordini e prodotti dal punto di vista dell'admin, inserimento modelli c'è, ma manca l 'unione! 
@@ -6,7 +6,7 @@ distinzione tra sessione utente o amministratore, e controllo del nome della pag
 motore di ricerca interno 
 pulsanti nella pagina ordini dal lato amministrativo 
 ordini bisogna fare l'avviso per email 
-l'annullamento dell'ordine
+l'annullamento dell'ordine (il cliente ha 5 minuti per annularlo)
 grafica
 testing
 javascript
@@ -15,7 +15,8 @@ all'alba del 29 12 2019
 cosa manca :
 0. ordine effetivo
 1. fare pagina degli oridni con tutti i relativi pulsanti
-    annulla ordine, conferma ordine 
+    annulla ordine (cliente)
+    conferma ordine (amministratore) 
 2. unire i file!
 3. refattoring
     es: nel file funzione.php c'è l'if degli errori
