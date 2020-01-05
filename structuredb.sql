@@ -21,7 +21,7 @@ CREATE TABLE modello (
     idModello      INT AUTO_INCREMENT PRIMARY KEY,
     nome           VARCHAR(20),
     marca          VARCHAR(20),
-    tipoMotore     ENUM('benzina', 'elettrico', 'gasolio', 'velocipede') NOT NULL,
+    alimentazione  ENUM('benzina', 'elettrico', 'gasolio', 'velocipede') NOT NULL,
     tipoModello    ENUM('aereo', 'auto', 'bicicletta', 'moto', 'nave', 'treno') NOT NULL,
     noPasseggeri   INT NOT NULL,
     peso           DECIMAL(5, 2) NOT NULL,
@@ -43,7 +43,7 @@ CREATE TABLE cliente_modello (
 );
 
 CREATE TABLE veicolo (
-    targa          CHAR(7) PRIMARY KEY,
+    matricola      CHAR(10) PRIMARY KEY,
     idOrdine       INT NOT NULL,
     idModello      INT NOT NULL,
     FOREIGN KEY (idOrdine) REFERENCES ordine(idOrdine),
