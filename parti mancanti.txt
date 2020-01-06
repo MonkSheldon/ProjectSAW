@@ -6,7 +6,7 @@ distinzione tra sessione utente o amministratore, e controllo del nome della pag
 motore di ricerca interno 
 pulsanti nella pagina ordini dal lato amministrativo 
 ordini bisogna fare l'avviso per email 
-l'annullamento dell'ordine (il cliente ha 5 minuti per annularlo)
+l'annullamento dell'ordine (il cliente ha 5 minuti per annularlo) FATTO
 grafica
 testing
 javascript
