@@ -1,7 +1,7 @@
 la pagina ordini: utente che accede può vedere i suoi ordini cronologicamente FATTO
 carrello FATTO
 procedura ordine lato server FATTO
-ordini e prodotti dal punto di vista dell'admin, inserimento modelli c'è, ma manca l 'unione! 
+ordini e prodotti dal punto di vista dell'admin, inserimento modelli c'è, ma manca l 'unione! FATTO
 distinzione tra sessione utente o amministratore, e controllo del nome della pagina 
 motore di ricerca interno 
 pulsanti nella pagina ordini dal lato amministrativo FATTO
