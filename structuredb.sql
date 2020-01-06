@@ -13,6 +13,8 @@ CREATE TABLE ordine (
     idOrdine       INT AUTO_INCREMENT PRIMARY KEY,
     dataOra        DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     idCliente      INT NOT NULL,
+    totale         DECIMAL(5, 2) NOT NULL,
+    isConsegna     TINYINT NOT NULL DEFAULT 0,
     UNIQUE(dataOra, idCliente),
     FOREIGN KEY (idCliente) REFERENCES cliente(idCliente)
 );
