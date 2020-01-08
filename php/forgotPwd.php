@@ -40,7 +40,7 @@
         $mail->SMTPAuth = true;
         $mail->Host = 'smtp.libero.it';
         $mail->Username = 'pagnonilorenzo@libero.it';
-        $mail->Password = 'Popi2008';
+        $mail->Password = 'beccati';
         $mail->setFrom('pagnonilorenzo@libero.it', 'Site');
         $mail->addAddress($email, $email);
         $mail->Subject = 'Site - Reimpostazione password';
