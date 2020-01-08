@@ -2,25 +2,25 @@
     require_once('funzione.php');
     checkSession(true);
 
-    if (!isset($_GET['idOrdine'])) {
+    if (!isset($_GET['idOrder'])) {
         header('Location: ordini.php?ammin=1&err=14');
         exit();
     }
 
-    $idOrdine = trim($_GET['idOrdine']);
+    $idOrder = trim($_GET['idOrder']);
 
-    if (empty($idOrdine)) {
+    if (empty($idOrder)) {
         header('Location: ordini.php?ammin=1&err=14');
         exit();
     }
     
     require_once('db/mysql_credentials.php');
 
-    function delivery_order($idOrdine, $db_connection) {
+    function delivery_order($idOrder, $db_connection) {
         if ($stmt = mysqli_prepare($db_connection, 'UPDATE ordine
                                                         SET isConsegna=\'1\'
                                                         WHERE idOrdine=?')) {
-            mysqli_stmt_bind_param($stmt, 'd', $idOrdine);
+            mysqli_stmt_bind_param($stmt, 'd', $idOrder);
             $result = mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
             if ($result) {
@@ -30,16 +30,12 @@
         return false;
     }
 
-    $success = delivery_order($idOrdine, $con);
+    $successful = delivery_order($idOrder, $con);
 
     mysqli_close($con);
 
-    if ($success) {
-        //Success message
+    if ($successful)
         header('Location: ordini.php?ammin=1');
-    }
-    else {
-        //Error message
+    else
         header('Location: ordini.php?ammin=1&err=14');
-    }
 ?>

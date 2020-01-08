@@ -3,19 +3,19 @@
     require_once('funzione.php');
     checkSession(false);
 
-    if (!isset($_SESSION['totale'])) {
+    if (!isset($_SESSION['total'])) {
         header('Location: carrello.php?err=12');
         exit();
     }
 
     $id = $_SESSION['id'];
-    $totale = $_SESSION['totale'];
+    $total = $_SESSION['total'];
     
     require_once('db/mysql_credentials.php');
-
+    
     $result = mysqli_query($con, 'INSERT INTO ordine(idOrdine, dataOra,
                                         totale, isConsegna, idCliente)
-                        VALUES (null, default, \''. $totale. '\', default, \''. $id. '\')');
+                        VALUES (null, default, \''. $total. '\', default, \''. $id. '\')');
 
     if (!$result) {
         header('Location: carrello.php?err=12');
@@ -40,18 +40,18 @@
         if ($stmt = mysqli_prepare($db_connection, '
                         INSERT INTO veicolo (matricola, idOrdine, idModello)
                             VALUES (?, ?, ?)')) {
-            foreach ($_SESSION['carrello'] as $key => $value)
-                for ($i = 0; $i < $value; $i++) {
+            foreach ($_SESSION['shoppingCart'] as $idModel => $quantity)
+                for ($i = 0; $i < $quantity; $i++) {
                     $newmatricola = generateRandomString(10);
-                    mysqli_stmt_bind_param($stmt, 'sdd', $newmatricola, $id, $key);
+                    mysqli_stmt_bind_param($stmt, 'sdd', $newmatricola, $id, $idModel);
                     $result = mysqli_stmt_execute($stmt);
                     if (!$result)
                         $i--;
                 }
             mysqli_stmt_close($stmt);
-            unset($_SESSION['carrello']);
+            unset($_SESSION['shoppingCart']);
             unset($_SESSION['count']);
-            unset($_SESSION['totale']);
+            unset($_SESSION['total']);
 			return true;
 		}
 		return false;
@@ -61,12 +61,8 @@
 
     mysqli_close($con);
 
-    if ($success) {
-        //Success message
+    if ($success)
         header('Location: carrello.php?msg=4');
-    }
-    else {
-        //Error message
+    else
         header('Location: carrello.php?err=12');
-    }
 ?>

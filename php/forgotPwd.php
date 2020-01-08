@@ -29,12 +29,11 @@
         return null;
     }
 
-    $success = update_pwd($email, $con);
+    $successful = update_pwd($email, $con);
 
     mysqli_close($con);
 
-    if ($success) {
-        //Success message
+    if ($successful) {
         require 'class.phpmailer.php';
         $mail = new PHPMailer();
         $mail->isSMTP();
@@ -45,13 +44,11 @@
         $mail->setFrom('pagnonilorenzo@libero.it', 'Site');
         $mail->addAddress($email, $email);
         $mail->Subject = 'Site - Reimpostazione password';
-        $mail->Body = 'Gentile utente, la sua nuova password è la seguente: '. $success. ' Consigliamo di cambiarla al prossimo accesso per aumentare la sicurezza del suo account';
+        $mail->Body = 'Gentile utente, la sua nuova password è la seguente: '. $successful. ' Consigliamo di cambiarla al prossimo accesso per aumentare la sicurezza del suo account';
         if ($mail->send())
             header('Location: forgotPwdHTML.php?msg=5');
         else
             header('Location: forgotPwdHTML.php?err=6');
-    } else {
-        // Error message
+    } else
         header('Location: forgotPwdHTML.php?err=5');
-    }
 ?>

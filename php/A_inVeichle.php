@@ -2,35 +2,35 @@
     require_once('funzione.php');
     checkSession(true);
 
-    if (!isset($_POST['nome']) || !isset($_POST['marca']) ||
-        !isset($_POST['alimentazione']) || !isset($_POST['tipoModello']) ||
-        !isset($_POST['passeggeri']) || !isset($_POST['peso']) ||
-        !isset($_POST['potenza']) || !isset($_POST['prezzo']) ||
-        !isset($_POST['larghezza']) || !isset($_POST['lunghezza']) ||
-        !isset($_POST['altezza']) || !isset($_POST['colore'])) {
+    if (!isset($_POST['name']) || !isset($_POST['brand']) ||
+        !isset($_POST['supply']) || !isset($_POST['type_model']) ||
+        !isset($_POST['passenger']) || !isset($_POST['weight']) ||
+        !isset($_POST['power']) || !isset($_POST['price']) ||
+        !isset($_POST['width']) || !isset($_POST['length']) ||
+        !isset($_POST['height']) || !isset($_POST['color'])) {
         header('Location: A_formVeichle.php?err=1');
         exit();
     }
     
-    $name = trim($_POST['nome']);
-    $brand = trim($_POST['marca']);
-    $supply = trim($_POST['alimentazione']);
-    $type_model = trim($_POST['tipoModello']);
-    $passenger = trim($_POST['passeggeri']);
-    $weight = trim($_POST['peso']);
-    $power = trim($_POST['potenza']);
-    $price = trim($_POST['prezzo']);
-    $width = trim($_POST['larghezza']);
-    $length = trim($_POST['lunghezza']);
-    $height = trim($_POST['altezza']);
-    $colore = trim($_POST['colore']);
+    $name = trim($_POST['name']);
+    $brand = trim($_POST['brand']);
+    $supply = trim($_POST['supply']);
+    $type_model = trim($_POST['type_model']);
+    $passenger = trim($_POST['passenger']);
+    $weight = trim($_POST['weight']);
+    $power = trim($_POST['power']);
+    $price = trim($_POST['price']);
+    $width = trim($_POST['width']);
+    $length = trim($_POST['length']);
+    $height = trim($_POST['height']);
+    $color = trim($_POST['color']);
 
     if (empty($name) || empty($brand) ||
         empty($supply) || empty($type_model) ||
         empty($passenger) || empty($weight) ||
         empty($power) || empty($price) ||
         empty($width) || empty($length) ||
-        empty($height) || empty($colore)) {
+        empty($height) || empty($color)) {
         header('Location: A_formVeichle.php?err=1');
         exit();
     }
@@ -38,7 +38,7 @@
     require_once('db/mysql_credentials.php');
 
     function insert_Veichle($name, $brand, $supply, $type_model, $passenger, $weight,
-                    $power, $price, $width, $length, $height, $colore, $db_connection) {
+                    $power, $price, $width, $length, $height, $color, $db_connection) {
         if ($stmt = mysqli_prepare($db_connection, '
                 INSERT INTO modello(idModello, nome, marca, alimentazione, tipoModello,
                                     noPasseggeri, peso, potenza, prezzo, larghezza, 
@@ -46,7 +46,7 @@
                                     VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')) {
             mysqli_stmt_bind_param($stmt, 'ssssidddddds', $name,  $brand, $supply,
                                     $type_model, $passenger, $weight, $power, $price,
-                                    $width, $length, $height, $colore);
+                                    $width, $length, $height, $color);
             
             $result = mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
@@ -58,16 +58,12 @@
     }
 
     $successful = insert_Veichle($name, $brand, $supply, $type_model, $passenger, 
-                        $weight, $power, $price, $width, $length, $height, $colore, $con);
+                        $weight, $power, $price, $width, $length, $height, $color, $con);
                         
     mysqli_close($con);
 
-    if ($successful) {
-        //Success message
+    if ($successful)
         header('Location: A_formVeichle.php?msg=1');
-    }
-    else {
-        //Error message
+    else
 		header('Location: A_formVeichle.php?err=9');
-	}
 ?>

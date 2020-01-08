@@ -10,9 +10,9 @@
     if ($action != 'svuota' && !isset($_GET['idModello']))
         header('Location: carrello.php?err=11');
     
-    $idModello = trim($_GET['idModello']);
+    $idModel = trim($_GET['idModel']);
 
-    if ($action != 'svuota' && empty($idModello))
+    if ($action != 'svuota' && empty($idModel))
         header('Location: carrello.php?err=11');
     
     session_start();
@@ -43,11 +43,11 @@
                 return null;
             }
 
-            $success = control_model($idModello, $con);
+            $successful = control_model($idModel, $con);
 
             mysqli_close($con);
 
-            if (!$success) {
+            if (!$successful) {
                 header('Location: index.php?err=11');
                 exit();
             }
@@ -57,32 +57,32 @@
             else
                 $_SESSION['count']++;
             
-            if (!isset($_SESSION['carrello'])) 
-                $_SESSION['carrello'] = array( $idModello => 1);
+            if (!isset($_SESSION['shoppingCart'])) 
+                $_SESSION['shoppingCart'] = array( $idModel => 1);
             else
-                if (array_key_exists($idModello, $_SESSION['carrello']))
-                    $_SESSION['carrello'][$idModello]++;
+                if (array_key_exists($idModel, $_SESSION['shoppingCart']))
+                    $_SESSION['shoppingCart'][$idModel]++;
                 else
-                    $_SESSION['carrello'][$idModello] = 1;
+                    $_SESSION['shoppingCart'][$idModel] = 1;
             
-            header('Location: products.php?veicolo='. $success);
+            header('Location: products.php?veichle='. $successful);
         break;
         case 'elimina':
-            if (!array_key_exists($idModello, $_SESSION['carrello'])) {
+            if (!array_key_exists($idModel, $_SESSION['shoppingCart'])) {
                 header('Location: carrello.php?err=11');
                 exit();
             }
-            $_SESSION['count'] -= $_SESSION['carrello'][$idModello];
-            unset($_SESSION['carrello'][$idModello]);
+            $_SESSION['count'] -= $_SESSION['shoppingCart'][$idModel];
+            unset($_SESSION['shoppingCart'][$idModel]);
             if ($_SESSION['count'] == 0) {
                 unset($_SESSION['count']);
-                unset($_SESSION['carrello']);
+                unset($_SESSION['shoppingCart']);
             }
             header('Location: carrello.php');
         break;
         case 'svuota':
             unset($_SESSION['count']);
-            unset($_SESSION['carrello']);
+            unset($_SESSION['shoppingCart']);
             header('Location: carrello.php');
         break;
         default:

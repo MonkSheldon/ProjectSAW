@@ -7,10 +7,10 @@
     unset($_SESSION['id']);
     unset($_SESSION['email']);
     unset($_SESSION['admin']);
-    unset($_SESSION['nome']);
-    unset($_SESSION['cognome']);
-    unset($_SESSION['telefono']);
-    if (!isset($_SESSION['carrello']))
+    unset($_SESSION['first_name']);
+    unset($_SESSION['last_name']);
+    unset($_SESSION['phone']);
+    if (!isset($_SESSION['shoppingCart']))
         session_destroy();
     header('Location: index.php');
 ?>

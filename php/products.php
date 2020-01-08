@@ -3,18 +3,18 @@
   myHeader('PRODOTTI', true);
   require_once('db/mysql_credentials.php');
 
-  $veicolo = $_GET['veicolo'];
+  $veichle = $_GET['veichle'];
 
   if ($stmt = mysqli_prepare($con,
 						'SELECT idModello, nome, marca
               FROM modello
               WHERE tipoModello=?')) {
-      mysqli_stmt_bind_param($stmt,'s', $veicolo);
-      $result = mysqli_stmt_execute($stmt);
+    mysqli_stmt_bind_param($stmt,'s', $veichle);
+    $result = mysqli_stmt_execute($stmt);
     if ($result) {
       mysqli_stmt_store_result($stmt);
       $norows = mysqli_stmt_num_rows($stmt);
-      mysqli_stmt_bind_result($stmt, $idModello, $name, $marca);
+      mysqli_stmt_bind_result($stmt, $idModel, $name, $brand);
       if ($norows >= 1) {?>
         <h2>I nostri veicoli</h2>
         <link rel='stylesheet' type='text/css' href='../css/pagina.css'>
@@ -24,8 +24,8 @@
             mysqli_stmt_fetch($stmt); ?> 
             <div class='card' style='width: 18rem;'>
               <div class='card-body'>
-                <p class='card-text'><?php echo 'Nome: '.$name. '<br>Marca: '. $marca;?></p>
-                <a href='update_products.php?action=aggiungi&idModello=<?php echo $idModello;?>' class='btn btn-primary'>Aggiungi al carrello</a>
+                <p class='card-text'><?php echo 'Nome: '. $name. '<br>Marca: '. $brand; ?></p>
+                <a href='update_products.php?action=aggiungi&idModel=<?php echo $idModel;?>' class='btn btn-primary'>Aggiungi al carrello</a>
               </div>
             </div>
     <?php } ?>

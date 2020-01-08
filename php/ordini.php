@@ -40,26 +40,26 @@
     $result = mysqli_query($con, $query);
 
     if ($result && mysqli_affected_rows($con) > 0) {
-        $idOrdine = '';
+        $idOrder = '';
         $i = 0;
 
         while ($row = mysqli_fetch_assoc($result)) {
-            if ($idOrdine != $row['idOrdine']) {
-                $idOrdine = $row['idOrdine'];
-                $dataOra = new DateTime($row['dataOra']);
-                echo '<br><strong>Ordine: '. $idOrdine. ' in data: '.
-                        $dataOra->format('d-m-Y H:i:s');
+            if ($idOrder != $row['idOrdine']) {
+                $idOrder = $row['idOrdine'];
+                $datetime = new DateTime($row['dataOra']);
+                echo '<br><strong>Ordine: '. $idOrder. ' in data: '.
+                        $datetime->format('d-m-Y H:i:s');
                 if ($ammin == '1')
                     echo ' Email: '. $row['email']. ' Telefono '. $row['telefono'];
                 echo ' Totale: '. $row['totale'];
                 if ($ammin == '0') {
-                    $dataOra->add(new DateInterval('PT5M'));
-                    $dataOra = $dataOra->format('Y-m-d H:i:s');
-                    $dataOraAnnull = new DateTime;
-                    $dataOraAnnull = $dataOraAnnull->format('Y-m-d H:i:s');
-                    if ($dataOra > $dataOraAnnull)
-                        echo ' <a href=\'annulla_ordine.php?idOrdine='. $idOrdine.
-                                '&timeannull='. $dataOraAnnull. '\'>Annulla</a>';
+                    $datetime->add(new DateInterval('PT5M'));
+                    $datetime = $datetime->format('Y-m-d H:i:s');
+                    $datetimeAnnull = new DateTime;
+                    $datetimeAnnull = $datetimeAnnull->format('Y-m-d H:i:s');
+                    if ($datetime > $datetimeAnnull)
+                        echo ' <a href=\'annulla_ordine.php?idOrder='. $idOrder.
+                                '&timeannull='. $datetimeAnnull. '\'>Annulla</a>';
                     else if ($row['isConsegna'] == 0)
                         echo ' IN PREPARAZIONE';
                     else
@@ -68,8 +68,7 @@
                 else {
                     echo ' ';
                     if ($row['isConsegna'] == 0)
-                        echo ' <a href=\'consegna_ordine.php?idOrdine='. $row['idOrdine'].
-                                '\'>';
+                        echo ' <a href=\'consegna_ordine.php?idOrder='. $idOrder.'\'>';
                     echo 'IN CONSEGNA';
                     if ($row['isConsegna'] == 0)
                         echo '</a>';

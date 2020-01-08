@@ -32,10 +32,10 @@
 			</ol>
 			<div class='carousel'>
 			<?php
-				$mezzi = array('moto', 'nave', 'auto', 'aereo', 'treno', 'bici');
-				foreach ($mezzi as $mezzo) { ?>
+				$means = array('moto', 'nave', 'auto', 'aereo', 'treno', 'bici');
+				foreach ($means as $half) { ?>
 			<?php
-					if ($mezzo == 'moto') { ?>
+					if ($half == 'moto') { ?>
 						<div class='carousel-item active show-for-large-up'>
 			<?php
 					}
@@ -43,7 +43,7 @@
 						<div class='carousel-item'>
 			<?php
 					} ?>
-						<img class='d-block' src='../images/<?php echo $mezzo; ?>.jpg' style='width: 100%' alt='<?php echo $mezzo; ?>'>
+						<img class='d-block' src='../images/<?php echo $half; ?>.jpg' style='width: 100%' alt='<?php echo $half; ?>'>
 					</div>
 			<?php
 				} ?>
@@ -63,12 +63,12 @@
 
 <div class='card-columns'>
 	<?php
-		$veicoli = array('aereo', 'auto', 'bici', 'moto', 'nave', 'treno');
-		foreach ($veicoli as $veicolo) { ?>
+		$veichles = array('aereo', 'auto', 'bici', 'moto', 'nave', 'treno');
+		foreach ($veichles as $veichle) { ?>
 			<div class='card' style='width: 18rem'>
-				<a href='products.php?veicolo=<?php echo $veicolo; ?>'><img class='card-img-top' src='../images/vechicles/<?php echo $veicolo; ?>.jpg' alt='Card image cap'>
+				<a href='products.php?veichle=<?php echo $veichle; ?>'><img class='card-img-top' src='../images/vechicles/<?php echo $veichle; ?>.jpg' alt='Card image cap'>
 					<div class='card-body'>
-						<h4 class='card-title'><?php echo ucfirst($veicolo); ?></h4>
+						<h4 class='card-title'><?php echo ucfirst($veichle); ?></h4>
 						<p class='card-text'>Dinanzi a me non fuor cose create se non etterne, e io etterno duro. Lasciate ogni speranza, voi ch'intrate</p>
 					</div>
 				</a>

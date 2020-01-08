@@ -2,7 +2,7 @@
     require_once('funzione.php');
     checkSession(false);
     if (!isset($_GET['id']) || $_GET['id'] != $_SESSION['id']) {
-        header('Location: login.php'); //da vedere
+        header('Location: index.php');
         exit();
     }
     myHeader('MODIFICA PROFILO', true);

@@ -5,33 +5,32 @@
     printMessage();
 ?>
     <form action='A_inVeichle.php' method='POST'>
-        <br><input type='text' name='nome' placeholder='Nome *' required>
-        <br><br><input type='text' name='marca' placeholder='Marca *' required><br>
+        <br><input type='text' name='name' placeholder='Name *' required>
+        <br><br><input type='text' name='brand' placeholder='Brand *' required><br>
         
         <?php
-            $campi = array('benzina', 'elettrico', 'gasolio', 'velocipede',
+            $fields = array('benzina', 'elettrico', 'gasolio', 'velocipede',
                             'aereo', 'auto', 'bicicletta', 'moto', 'nave', 'treno');
-            $name = 'alimentazione';
-            foreach ($campi as $campo) {
-                if ($campo == 'aereo') {
-                    $name = 'tipoModello';
+            $name = 'supply';
+            foreach ($fields as $field) {
+                if ($field == 'aereo') {
+                    $name = 'type_model';
                     echo '<br>';
                 }
             ?>
                 <br><input type='radio' name='<?php echo $name; ?>'
-                        value='<?php echo $campo; ?> *'
-                        required><?php echo ucfirst($campo);
+                        value='<?php echo $field; ?>'
+                        required><?php echo ucfirst($field);
             } ?>
 
-        <br><br><input type='number' name='passeggeri' placeholder='Passeggeri'
-                    required>
-        <br><br><input type='number' name='peso' placeholder='Peso *' required>
-        <br><br><input type='number' name='potenza' placeholder='Potenza *' required>
-        <br><br><input type='number' name='prezzo' placeholder='Prezzo *' required>
-        <br><br><input type='number' name='larghezza' placeholder='Larghezza *' required>
-        <br><br><input type='number' name='lunghezza' placeholder='Lunghezza *' required>
-        <br><br><input type='number' name='altezza' placeholder='Altezza *' required>
-        <br><br><input type='color' name='colore *' required>
+        <br><br><input type='number' name='passenger' placeholder='Passenger *'required>
+        <br><br><input type='number' name='weight' placeholder='Weight *' required>
+        <br><br><input type='number' name='power' placeholder='Power *' required>
+        <br><br><input type='number' name='price' placeholder='Price *' required>
+        <br><br><input type='number' name='width' placeholder='Width *' required>
+        <br><br><input type='number' name='length' placeholder='Length *' required>
+        <br><br><input type='number' name='height' placeholder='Height *' required>
+        <br><br><input type='color' name='color' required>
         <br><br><input type='submit' value='Submit'>
     </form>
 

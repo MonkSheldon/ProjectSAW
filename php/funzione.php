@@ -6,32 +6,32 @@
 			exit();
 		}
 		if ($isAdmin && $_SESSION['admin'] == 0) {
-			controlError("7");
+			controlError('7');
 			exit();
 		}
 	}
 
 	function checkValuesUtente($form) {
-        if (($form == "inserimento" && (!isset($_POST['pass']) ||
+        if (($form == 'inserimento' && (!isset($_POST['pass']) ||
             !isset($_POST['confirm']))) || !isset($_POST['email']) ||
             !isset($_POST['firstname']) || !isset($_POST['lastname']) ||
-            !isset($_POST['telephone'])) {
+            !isset($_POST['phone'])) {
 			myRedirect($form);
 		}
 		
         // Get values from $_POST, but do it IN A SECURE WAY
-        if ($form == "inserimento") {
+        if ($form == 'inserimento') {
             $password = trim($_POST['pass']); // replace null with $_POST and sanitization
 	        $password_confirm = trim($_POST['confirm']); // replace null with $_POST and sanitization
         }
         $email = trim($_POST['email']); // replace null with $_POST and sanitization
         $first_name = trim($_POST['firstname']); // replace null with $_POST and sanitization
         $last_name = trim($_POST['lastname']); // replace null with $_POST and sanitization
-		$telephone = trim($_POST['telephone']);
+		$phone = trim($_POST['phone']);
 		
         // Get additional values from $_POST, but do it IN A SECURE WAY
         // If you have additional values, change functions params accordingly
-        if (($form == "inserimento" && (empty($password) ||
+        if (($form == 'inserimento' && (empty($password) ||
             empty($password_confirm))) || empty($email) ||
             empty($first_name) || empty($last_name)) {
 			myRedirect($form);
@@ -39,10 +39,10 @@
 		
 		$valuesUtente = array(
 			'email' => $email,
-			'first_name' => $first_name,
-			'last_name' => $last_name,
-			'telephone' => $telephone);
-        if ($form == "inserimento") {
+			'firstname' => $first_name,
+			'lastname' => $last_name,
+			'phone' => $phone);
+        if ($form == 'inserimento') {
 			$valuesUtente['password'] = $password;
 			$valuesUtente['password_confirm'] = $password_confirm;
 		}
@@ -54,29 +54,29 @@
 		session_start();
 		printMessage();
 ?>
-		<form action="<?php echo $action; ?>" method="POST">
-			<!--<label for="firstname">First name *</label>-->
-			<br><input type="text" name="firstname" placeholder="firstname *" <?php insertValueForUpdate($action, $_SESSION['nome']); ?>required><br>
+		<form action='<?php echo $action; ?>' method='POST'>
+			<!--<label for='firstname'>First name *</label>-->
+			<br><input type='text' name='firstname' placeholder='firstname *' <?php if (isset($_SESSION['firstname'])) {echo 'value=\''. $_SESSION['firstname']. '\'';} ?> required><br>
 			
-			<!--<label for="lastname">Last name *</label>-->
-			<br><input type="text" name="lastname" placeholder="lastname *" <?php insertValueForUpdate($action, $_SESSION['cognome']); ?>required><br>
+			<!--<label for='lastname'>Last name *</label>-->
+			<br><input type='text' name='lastname' placeholder='lastname *' <?php if (isset($_SESSION['lastname'])) {echo 'value=\''. $_SESSION['lastname']. '\'';} ?> required><br>
 
-			<!--abel for="email">E-mail *</label>-->
-			<br><input type="email" name="email" placeholder="email *" <?php insertValueForUpdate($action, $_SESSION['email']); ?>required><br>
+			<!--abel for='email'>E-mail *</label>-->
+			<br><input type='email' name='email' placeholder='email *' <?php if (isset($_SESSION['email'])) {echo 'value=\''. $_SESSION['email']. '\'';} ?>  required><br>
 
 			<?php
 				if (!isset($_SESSION['id'])) { ?>
-					<!--<label for="pass">Password *</label>-->
-					<br><input type="password" name="pass" placeholder="password *" required><br>
+					<!--<label for='pass'>Password *</label>-->
+					<br><input type='password' name='pass' placeholder='password *' required><br>
 
-					<!--<label for="confirm">Confirm Password *</label>-->
-					<br><input type="password" name="confirm" placeholder="confirm *" required><br>
+					<!--<label for='confirm'>Confirm Password *</label>-->
+					<br><input type='password' name='confirm' placeholder='confirm *' required><br>
 			<?php } ?>
 
-			<!--<label for="telephone">telefono *</label>-->
-			<br><input type="text" name="telephone" placeholder="telephone" <?php insertValueForUpdate($action, $_SESSION['telefono']); ?>><br>		
+			<!--<label for='telephone'>telefono *</label>-->
+			<br><input type='text' name='phone' placeholder='phone' <?php if (isset($_SESSION['phone'])) {echo 'value=\''. $_SESSION['phone']. '\'';} ?> ><br>		
 
-			<br><input type="submit" value="Submit">
+			<br><input type='submit' value='Submit'>
 		</form>
 <?php
 	}
@@ -96,54 +96,50 @@
         return $randomString;
     }
 
-	function insertValueForUpdate($action, $value) {
-		if (isset($_SESSION['id']))
-			echo "value=\"$value\" ";
-	}
-
 	function myHeader($title, $op) {
 ?>
 		<!DOCTYPE html>
 		<html>
 			<head>
-				<link rel="stylesheet" type="text/css" href="../css/startSaw.css">
-				<link rel="stylesheet" type="text/css "href="../css/bootstrap.min.css">
-				<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+				<link rel='stylesheet' type='text/css' href='../css/startSaw.css'>
+				<link rel='stylesheet' type='text/css' href='../css/bootstrap.min.css'>
+				<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
 				<title><?php echo $title; ?></title>
 			</head>
 				<body>
-					<nav class="navbar fixed">
+					<nav class='navbar fixed'>
 
-					<a class="navbar-brand" href="../php/index.php"><img src="../images/logo1.PNG" alt="logo"></a>
+					<a class='navbar-brand' href='index.php'><img src='../images/logo1.PNG' alt='logo'></a>
 						
-					<div class="container" >
-						<ul class="navbar-nav ml-auto">
+					<div class='container'>
+						<ul class='navbar-nav ml-auto'>
 							<?php
 								if ($op) { ?>
-									<li class="nav-item">
+									<li class='nav-item'>
 									<?php
-										session_start();
+										if (session_status() == PHP_SESSION_NONE)
+											session_start();
 										if (isset($_SESSION['id'])) { ?>
-											<div class="dropdown">
-												<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-													Ciao <?php echo $_SESSION['nome']. " ". $_SESSION['cognome']; ?>
+											<div class='dropdown'>
+												<button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'>
+													Ciao <?php echo $_SESSION['firstname']. ' '. $_SESSION['lastname']; ?>
 												</button>
-												<div class="dropdown-menu">
+												<div class='dropdown-menu'>
 													<?php
 														$dropdown = array(
-															"ordini.php?ammin=0" => "I miei ordini",
-															"show_profile.php?id=". $_SESSION['id'] => "Modifica account",
-															"logout.php" => "Logout");
+															'ordini.php?ammin=0' => 'I miei ordini',
+															'show_profile.php?id='. $_SESSION['id'] => 'Modifica account',
+															'logout.php' => 'Logout');
 															
 															if ($_SESSION['admin'] == 1) {?>
-																<a class="dropdown-item" href="gestione_modelli.php">Gestione modelli</a>
-																<a class="dropdown-item" href="ordini.php?ammin=1">Gestione ordini</a>
+																<a class='dropdown-item' href='gestione_modelli.php'>Gestione modelli</a>
+																<a class='dropdown-item' href='ordini.php?ammin=1'>Gestione ordini</a>
 															<?php  
 																}
 															?>
 															
 															<?php foreach ($dropdown as $link => $name) { ?>
-															<a class="dropdown-item" href="<?php echo $link; ?>"><?php echo $name; ?></a>
+															<a class='dropdown-item' href='<?php echo $link; ?>'><?php echo $name; ?></a>
 													<?php
 														} ?>
 												</div> 
@@ -152,16 +148,16 @@
 										}
 										else { ?>
 
-												<a class="nav-link" href="../php/inserimento.php">
-												<i class="far fa-user"></i></a>
-												<a class="nav-link" href="../php/loginHTML.php">
-												<i class="fas fa-sign-in-alt"></i></a>											 
+												<a class='nav-link' href='inserimento.php'>
+												<i class='far fa-user'></i></a>
+												<a class='nav-link' href='loginHTML.php'>
+												<i class='fas fa-sign-in-alt'></i></a>											 
 									<?php
 										} ?>
-											<a class="nav-link" href="../php/searchHTML.php">
-											<i class="fas fa-search"></i></a>
-											<a class="nav-link" href="../php/carrello.php">	
-											<i class="fas fa-shopping-cart"></i></a>
+											<a class='nav-link' href='../php/searchHTML.php'>
+											<i class='fas fa-search'></i></a>
+											<a class='nav-link' href='../php/carrello.php'>	
+											<i class='fas fa-shopping-cart'></i></a>
 											<span><?php 
 										
 											if(!isset($_SESSION['count']))		
@@ -180,87 +176,86 @@
 	}
 
 	function myRedirect($form) {
-		if ($form == "inserimento")
-			header("Location: ". $form. ".php?err=1");
+		if ($form == 'inserimento')
+			header('Location: '. $form. '.php?err=1');
 		else
-			header("Location: ". $form. ".php?id=". $_SESSION['id'] ."&err=1");
+			header('Location: '. $form. '.php?id='. $_SESSION['id'] .'&err=1');
 		exit();
 	}
 
 	function printMessage() {
-		if (isset($_GET["msg"]) && $_GET['msg'] >= 1 && $$_GET['msg'] <= 8) { ?>
-				<div class='alert alert-success'>
-				<?php
-					switch ($no) {
-						case 1:
-							echo 'Modello inserito';
-						break;
-						case 2:
-							echo 'Ordine cancellato con successo';
-						break;
-						case 3:
-							echo 'La password è stata cambiata correttamente';
-						break;
-						case 4:
-							echo 'Ordine completato';
-						break;
-						case 5:
-							echo 'La password è stata inviata alla tua posta elettronica';
-						break;
-						case 6:
-							echo 'Ordine cancellato con successo';
-						break;
-						case 7:
-							echo '<strong>Registrazione andata a buon fine!</strong> Ora puoi accedere al tuo account effetuando il <a href=\'loginHTML.php\'>login</a>';
-						break;
-						case 8:
-							echo '<strong>Modifica andata a buon fine!</strong>';
-						break;
-					}
-				?>
-				</div>
-	<?php
-			}
-			
-		else if (isset($_GET["err"]) && $_GET['err'] >= 1 && $_GET['err'] <= 12) { ?>
-			<div class="alert alert-danger alert-dismissible fade show">
+		if (isset($_GET['msg']) && $_GET['msg'] >= 1 && $$_GET['msg'] <= 8) { ?>
+			<div class='alert alert-success'>
 			<?php
-				switch ($no) {
+				switch ($_GET['msg']) {
 					case 1:
-						echo "I campi con * sono obbligatori";
+						echo 'Modello inserito';
 					break;
 					case 2:
-						echo "L'utente è già inserito con questa mail";
+						echo 'Ordine cancellato con successo';
 					break;
 					case 3:
-						echo "Username e/o password sbagliate";
+						echo 'La password è stata cambiata correttamente';
 					break;
 					case 4:
-						echo "La password attuale non risulta corretta e/o la nuova password non è uguale a quella di conferma";
+						echo 'Ordine completato';
 					break;
 					case 5:
-						echo "L'email inserita non risulta nel sistema";
+						echo 'La password è stata inviata alla tua posta elettronica';
 					break;
 					case 6:
-						echo "Momentaneamente abbiamo qualche problema con la reimpostazione della password. Riprova più tardi, ci dispiace per il disagio";
+						echo 'Ordine cancellato con successo';
 					break;
 					case 7:
-						echo "Non hai i premessi per visualizzare questa pagina";
+						echo '<strong>Registrazione andata a buon fine!</strong> Ora puoi accedere al tuo account effetuando il <a href=\'loginHTML.php\'>login</a>';
 					break;
 					case 8:
-						echo "Modello non trovato";
+						echo '<strong>Modifica andata a buon fine!</strong>';
+					break;
+				}
+			?>
+			</div>
+<?php
+		}
+		else if (isset($_GET['err']) && $_GET['err'] >= 1 && $_GET['err'] <= 12) { ?>
+			<div class='alert alert-danger alert-dismissible fade show'>
+			<?php
+				switch ($_GET['err']) {
+					case 1:
+						echo 'I campi con * sono obbligatori';
+					break;
+					case 2:
+						echo 'L\'utente è già inserito con questa mail';
+					break;
+					case 3:
+						echo 'Username e/o password sbagliate';
+					break;
+					case 4:
+						echo 'La password attuale non risulta corretta e/o la nuova password non è uguale a quella di conferma';
+					break;
+					case 5:
+						echo 'L\'email inserita non risulta nel sistema';
+					break;
+					case 6:
+						echo 'Momentaneamente abbiamo qualche problema con la reimpostazione della password. Riprova più tardi, ci dispiace per il disagio';
+					break;
+					case 7:
+						echo 'Non hai i premessi per visualizzare questa pagina';
+					break;
+					case 8:
+						echo 'Modello non trovato';
 					break;
 					case 9:
-						echo "Non è stato possibile inserire il modello nel sistema";
+						echo 'Non è stato possibile inserire il modello nel sistema';
 					break;
 					case 10:
-						echo "Azione non valida per aggiornare il carrello";
+						echo 'Azione non valida per aggiornare il carrello';
 					break;
 					case 11:
-						echo "Il modello in analisi non risulta nel sistema";
+						echo 'Il modello in analisi non risulta nel sistema';
 					break;
 					case 12:
-						echo "Ordine non confermato";
+						echo 'Ordine non confermato';
 					break;
 				} ?>
 			</div>
@@ -268,14 +263,14 @@
 		}
 	}
 
-	function sessionUtente($id, $email, $admin, $nome, $cognome, $telefono) {
+	function sessionUtente($id, $email, $admin, $first_name, $last_name, $phone) {
 		session_start();
 		$_SESSION['id'] = $id;
 		$_SESSION['email'] = $email;
 		$_SESSION['admin'] = $admin;
-		$_SESSION['nome'] = $nome;
-		$_SESSION['cognome'] = $cognome;
-		$_SESSION['telefono'] = $telefono;
+		$_SESSION['firstname'] = $first_name;
+		$_SESSION['lastname'] = $last_name;
+		$_SESSION['phone'] = $phone;
 	}
 
 ?>
