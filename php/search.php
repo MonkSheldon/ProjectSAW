@@ -1,42 +1,52 @@
 <?php
+	// TODO: change credentials in the db/mysql_credentials.php file
+	require_once('funzione.php');
+	//BISOGNA AGGIUNGERE LE SESSIONI E CONTROLLARE CHE UN UTENTE POSSA SOLO CERCARE I MODELLI
+		//MENTRE L'ADMIN PUO CERCARE MODELLI E CLIENTI. 
 
-// TODO: change credentials in the db/mysql_credentials.php file
-require_once('db/mysql_credentials.php');
+	// Get search string from $_GET['search']
+	// but do it IN A SECURE WAY
+	
+	if (!isset($_GET['search'])) {
+		header('Location: searchHTML.php?err=1');
+		exit();
+	}
 
-// Open DBMS Server connection
+	$search = trim($_GET['search']); // replace null with $_GET and sanitization
+	
+	if (empty($search)) {
+		header('Location: searchHTML.php?err=1');
+		exit();
+	}
 
-// Get search string from $_GET['search']
-// but do it IN A SECURE WAY
-$search = $_GET['search']; // replace null with $_GET and sanitization
-if(!isset($_GET['search'])||empty($_GET['search'] ))
-{
-	header('Location: searchHTML.html');
-	exit();
-}		
-echo $search;	
-function search($search, $db_connection) {
- $search=trim($search);
- $query="SELECT * from cliente WHERE email='".$search."'";
-$result=mysqli_query($db_connection,$query);
-			
-			if (mysqli_affected_rows($db_connection)==1) {				
-				 return mysqli_fetch_assoc($result);
-			} else {
-				return null;
+	require_once('db/mysql_credentials.php');
+
+	$query = 'SELECT *
+				FROM modello
+				WHERE marca=?
+				ORDER BY prezzo ASC';	
+	if ($stmt = mysqli_prepare($con, $query)) {
+		mysqli_stmt_bind_param($stmt, 's', $search);
+		$result = mysqli_stmt_execute($stmt);
+		if ($result) {
+			mysqli_stmt_store_result($stmt);
+			$norows = mysqli_stmt_num_rows($stmt);
+			if ($norows > 0) {
+				mysqli_stmt_bind_result($stmt, $idModello, $nome, $marca, 
+											$tipoMotore, $tipoModello, $noPasseggeri, $peso, 
+											$potenza, $prezzo, $larghezza, $lunghezza, $altezza);
+				while (mysqli_stmt_fetch($stmt)) {
+					echo $idModello, $nome, $marca, 
+					$tipoMotore, $tipoModello, $noPasseggeri, $peso, 
+					$potenza, $prezzo, $larghezza, $lunghezza, $altezza;
+				}
+				mysqli_stmt_free_result($stmt);
+				mysqli_stmt_close($stmt);
 			}
-}
-
-// Get user from login
-$results = search($search, $con);
-
-if ($results) {
-    foreach ($results as $result) {
-       // Format as you like and print search results
-       echo $result;
-    }
-} else {
-    // No matches found
-  header('Location: index.php');
-	exit();
-}
+			else
+				header('Location: searchHTML.php?err=8');
+		}
+	}
+	
+	mysqli_close($con);
 ?>

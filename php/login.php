@@ -11,7 +11,6 @@
 	$email = trim($_POST['email']); // replace null with $_POST and sanitization
 	$pass = trim($_POST['pass']); // replace null with $_POST and sanitization
 	$cookie = $_POST['remember-me'];
-
 	if (empty($email) || empty($pass)) {
 		header('Location: loginHTML.php?err=1');
 		exit();
@@ -21,13 +20,12 @@
 
 	function login($email, $pass, $cookie, $db_connection) {
 		$pass = sha1($pass);
-
 		if ($stmt = mysqli_prepare($db_connection,
-						"SELECT idCliente, email, isAdmin, nome, cognome, telefono
+						'SELECT idCliente, email, isAdmin, nome, cognome, telefono
 							FROM cliente
 							WHERE email=? AND
-								pword=?")) {
-			mysqli_stmt_bind_param($stmt, "ss", $email, $pass);
+								pword=?')) {
+			mysqli_stmt_bind_param($stmt, 'ss', $email, $pass);
 			$result = mysqli_stmt_execute($stmt);
 			if ($result) {
 				mysqli_stmt_store_result($stmt);
@@ -37,15 +35,15 @@
 					mysqli_stmt_fetch($stmt);
 					mysqli_stmt_free_result($stmt);
 					mysqli_stmt_close($stmt);
-					if ($cookie == "remember-me") {
+					if ($cookie == 'remember-me') {
 						$time = time() + 3600;
-						$result = mysqli_query($db_connection, "
+						$result = mysqli_query($db_connection, '
 							UPDATE cliente
-								SET cookie='". $time ."'
-								WHERE idCliente='". $id ."'");
+								SET cookie=\''. $time .'\'
+								WHERE idCliente=\''. $id .'\'');
 						if (!$result)
 							return null;
-						setcookie("id", $id, $time);
+						setcookie('id', $id, $time);
 					}
 					return array($id, $em, $admin, $nome, $cognome, $tel);
 				}
@@ -58,7 +56,7 @@
 	$user = login($email, $pass, $cookie, $con);
 
 	mysqli_close($con);
-
+	
 	if ($user) {
 		// Welcome
 		require_once('funzione.php');

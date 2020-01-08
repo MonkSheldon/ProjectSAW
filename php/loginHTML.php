@@ -1,15 +1,16 @@
 <?php
-	require_once("funzione.php");
-	myHeader("LOGIN", false);
+	require_once('funzione.php');
+	myHeader('LOGIN', false);
+	printMessage();
 
 	if (isset($_COOKIE['id'])) {
 		require_once('db/mysql_credentials.php');
 		if ($stmt = mysqli_prepare($con,
-						"SELECT idCliente, email, nome, cognome, telefono
+						'SELECT idCliente, email, nome, cognome, telefono
 							FROM cliente
 							WHERE idCliente=? AND
-								cookie>'". time(). "'")) {
-			mysqli_stmt_bind_param($stmt, "i", $_COOKIE['id']);
+								cookie>\''. time(). '\'')) {
+			mysqli_stmt_bind_param($stmt, 'i', $_COOKIE['id']);
 			$result = mysqli_stmt_execute($stmt);
 			if ($result) {
 				mysqli_stmt_store_result($stmt);
@@ -26,23 +27,19 @@
 		}
 		mysqli_close($con);
 	}
-
-	if (count($_GET) > 0) {
-		controlError($_GET['err']);
-	}
 ?>
-	<form action="login.php" method="POST">
-		<!--<label for="email">email</label>-->
-		<input type="email" name="email" placeholder="email" required>
-		<!--<label for="password">password</label>-->
-		<input type="password" name="pass" placeholder="password" required>
-		<input type="submit" value="Submit">
-		<div class="field-group">
-			<div><input type="checkbox" name="remember-me" value="remember-me"></div>
-			<label for="remember-me">Remember me</label>
+	<form action='login.php' method='POST'>
+		<!--<label for='email'>email</label>-->
+		<input type='email' name='email' placeholder='email' required>
+		<!--<label for='password'>password</label>-->
+		<input type='password' name='pass' placeholder='password' required>
+		<input type='submit' value='Submit'>
+		<div class='field-group'>
+			<div><input type='checkbox' name='remember-me' value='remember-me'></div>
+			<label for='remember-me'>Remember me</label>
 		</div>
 	</form>
-	<a href="forgotPwdHTML.php">Recupera la password</a>
+	<a href='forgotPwdHTML.php'>Recupera la password</a>
 <?php
-	include("../html/footer.html");
+	include('../html/footer.html');
 ?>

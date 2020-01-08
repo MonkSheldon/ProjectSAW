@@ -27,11 +27,11 @@
         $pass = sha1($pass);
         $newpass = sha1($newpass);
         
-        if ($stmt = mysqli_prepare($db_connection, "UPDATE cliente
+        if ($stmt = mysqli_prepare($db_connection, 'UPDATE cliente
                        SET pword=?
-                       WHERE idCliente='". $id ."'
-                            AND pword=?")) {
-            mysqli_stmt_bind_param($stmt, "ss", $newpass, $pass);
+                       WHERE idCliente=\''. $id .'\'
+                            AND pword=?')) {
+            mysqli_stmt_bind_param($stmt, 'ss', $newpass, $pass);
             $result = mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
             if ($result)
@@ -46,9 +46,9 @@
 
     if ($success) {
         // Success message
-        header("Location: changePwdHTML.php?msg=1");
+        header('Location: changePwdHTML.php?msg=3');
     } else {
         // Error message
-        header("Location: changePwdHTML.php?err=4");
+        header('Location: changePwdHTML.php?err=4');
     }
 ?>

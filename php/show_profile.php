@@ -5,13 +5,11 @@
         header('Location: login.php'); //da vedere
         exit();
     }
-    myHeader("MODIFICA PROFILO", true);
+    myHeader('MODIFICA PROFILO', true);
 ?>
 	<h3>Modifica del account VeichLe resize</h3>
-    <a href="changePwdHTML.php">Cambia Password</a>
+    <a href='changePwdHTML.php'>Cambia Password</a>
 <?php
-    formUtente("update_profile.php", 
-                "<strong>Modifica andata a buon fine!</strong>");
-            
-    include("../html/footer.html");
+    formUtente('update_profile.php');
+    include('../html/footer.html');
 ?>
