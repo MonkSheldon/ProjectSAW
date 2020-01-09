@@ -55,7 +55,7 @@
                 if ($ammin == '0') {
                     $datetime->add(new DateInterval('PT5M'));
                     $datetime = $datetime->format('Y-m-d H:i:s');
-                    $datetimeAnnull = new DateTime;
+                    $datetimeAnnull = new DateTime(null, new DateTimeZone('Europe/Rome'));
                     $datetimeAnnull = $datetimeAnnull->format('Y-m-d H:i:s');
                     if ($datetime > $datetimeAnnull)
                         echo ' <a href=\'annulla_ordine.php?idOrder='. $idOrder.
