@@ -1,5 +1,4 @@
 <?php
-    //GESTIONE DEI LOCK
     require_once('funzione.php');
     checkSession(false);
 
@@ -12,11 +11,13 @@
     $total = $_SESSION['total'];
     
     require_once('db/mysql_credentials.php');
+
+    $result = mysqli_query($con, 'START TRANSACTION');
     
     $result = mysqli_query($con, 'INSERT INTO ordine(idOrdine, dataOra,
                                         totale, isConsegna, idCliente)
                         VALUES (null, default, \''. $total. '\', default, \''. $id. '\')');
-
+    
     if (!$result) {
         header('Location: carrello.php?err=12');
         exit();
@@ -35,7 +36,9 @@
 
     $row = mysqli_fetch_assoc($result);
     $idOrdine = $row['idOrdine'];
-    
+
+    $result = mysqli_query($con, 'COMMIT');
+
     function confirm_order($id, $db_connection) {
         if ($stmt = mysqli_prepare($db_connection, '
                         INSERT INTO veicolo (matricola, idOrdine, idModello)

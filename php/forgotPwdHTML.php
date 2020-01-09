@@ -1,7 +1,7 @@
 <?php
     require_once('funzione.php');
     myHeader('REIMPOSTA PASSWORD', false);
-    printMesage();
+    printMessage();
 ?>
     <h3>Reimposta la password</h3>
     <p>Per reimpostarla occorre inserire la mail data al momento della registrazione</h3>

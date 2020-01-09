@@ -11,6 +11,7 @@
 	$email = trim($_POST['email']); // replace null with $_POST and sanitization
 	$pass = trim($_POST['pass']); // replace null with $_POST and sanitization
 	$cookie = $_POST['remember-me'];
+	
 	if (empty($email) || empty($pass)) {
 		header('Location: loginHTML.php?err=1');
 		exit();

@@ -28,6 +28,7 @@
 		mysqli_close($con);
 	}
 ?>
+<div class='container-fluid'>
 	<form action='login.php' method='POST'>
 		<!--<label for='email'>email</label>-->
 		<input type='email' name='email' placeholder='email' required>
@@ -40,6 +41,7 @@
 		</div>
 	</form>
 	<a href='forgotPwdHTML.php'>Recupera la password</a>
+</div>
 <?php
 	include('../html/footer.html');
 ?>

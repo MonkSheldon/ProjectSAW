@@ -12,6 +12,7 @@
     }
 
     require_once('db/mysql_credentials.php');
+    require_once('funzione.php');
 
     function update_pwd($email, $db_connection) {
         $pwdOriginal = generateRandomString(8);
@@ -40,7 +41,7 @@
         $mail->SMTPAuth = true;
         $mail->Host = 'smtp.libero.it';
         $mail->Username = 'pagnonilorenzo@libero.it';
-        $mail->Password = 'beccati';
+        $mail->Password = '';
         $mail->setFrom('pagnonilorenzo@libero.it', 'Site');
         $mail->addAddress($email, $email);
         $mail->Subject = 'Site - Reimpostazione password';

@@ -4,7 +4,7 @@
 ?>
 
 <!-- fai un file css con : -->
-
+<div class='container-fluid'>
 <br><h3>Parcheggi cari? 
 	Stufo di dimenticare dove hai posteggiato il tuo aereo? </h3><br>
 <h5 id='myh5'>
@@ -14,7 +14,7 @@
 	... tranquillo, non rimarrai schiacciato all'interno dei veicoli, i nostri ingegneri si sono occupati dei miglior controlli su questo.
 </h5>
 
-	<div class='container-fluid' style='width: 100%; height:35%;'>
+	
 		<div class='row'>
 		<div id='carouselExampleIndicators' class='carousel slide' data-ride='carousel'>
 			<ol class='carousel-indicators'>

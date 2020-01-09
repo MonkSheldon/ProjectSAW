@@ -33,5 +33,6 @@
         <br><br><input type='color' name='color' required>
         <br><br><input type='submit' value='Submit'>
     </form>
-
-<?php include('../html/footer.html'); ?>
+<?php
+    include('../html/footer.html');
+?>

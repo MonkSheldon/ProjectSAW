@@ -1,10 +1,6 @@
 <?php
     require_once('funzione.php');
     checkSession(false);
-    if (!isset($_GET['id']) || $_GET['id'] != $_SESSION['id']) {
-        header('Location: index.php');
-        exit();
-    }
     myHeader('MODIFICA PROFILO', true);
 ?>
 	<h3>Modifica del account VeichLe resize</h3>

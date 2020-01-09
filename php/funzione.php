@@ -13,9 +13,8 @@
 
 	function checkValuesUtente($form) {
         if (($form == 'inserimento' && (!isset($_POST['pass']) ||
-            !isset($_POST['confirm']))) || !isset($_POST['email']) ||
-            !isset($_POST['firstname']) || !isset($_POST['lastname']) ||
-            !isset($_POST['phone'])) {
+			!isset($_POST['confirm']) || !isset($_POST['email']))) || //email only registration
+            !isset($_POST['firstname']) || !isset($_POST['lastname'])) {
 			myRedirect($form);
 		}
 		
@@ -23,8 +22,9 @@
         if ($form == 'inserimento') {
             $password = trim($_POST['pass']); // replace null with $_POST and sanitization
 	        $password_confirm = trim($_POST['confirm']); // replace null with $_POST and sanitization
-        }
-        $email = trim($_POST['email']); // replace null with $_POST and sanitization
+			$email = trim($_POST['email']); // replace null with $_POST and sanitization
+		}
+       // $email = trim($_POST['email']); // replace null with $_POST and sanitization
         $first_name = trim($_POST['firstname']); // replace null with $_POST and sanitization
         $last_name = trim($_POST['lastname']); // replace null with $_POST and sanitization
 		$phone = trim($_POST['phone']);
@@ -32,17 +32,18 @@
         // Get additional values from $_POST, but do it IN A SECURE WAY
         // If you have additional values, change functions params accordingly
         if (($form == 'inserimento' && (empty($password) ||
-            empty($password_confirm))) || empty($email) ||
+            empty($password_confirm) || empty($email))) || //email only registration
             empty($first_name) || empty($last_name)) {
 			myRedirect($form);
 		}
 		
 		$valuesUtente = array(
-			'email' => $email,
+			//'email' => $email,
 			'firstname' => $first_name,
 			'lastname' => $last_name,
 			'phone' => $phone);
         if ($form == 'inserimento') {
+			$valuesUtente['email'] = $email;
 			$valuesUtente['password'] = $password;
 			$valuesUtente['password_confirm'] = $password_confirm;
 		}
@@ -51,7 +52,6 @@
 	}
 
 	function formUtente($action) {
-		session_start();
 		printMessage();
 ?>
 		<form action='<?php echo $action; ?>' method='POST'>
@@ -128,7 +128,7 @@
 													<?php
 														$dropdown = array(
 															'ordini.php?ammin=0' => 'I miei ordini',
-															'show_profile.php?id='. $_SESSION['id'] => 'Modifica account',
+															'show_profile.php' => 'Modifica account',
 															'logout.php' => 'Logout');
 															
 															if ($_SESSION['admin'] == 1) {?>
@@ -184,7 +184,7 @@
 	}
 
 	function printMessage() {
-		if (isset($_GET['msg']) && $_GET['msg'] >= 1 && $$_GET['msg'] <= 8) { ?>
+		if (isset($_GET['msg']) && $_GET['msg'] >= 1 && $_GET['msg'] <= 8) { ?>
 			<div class='alert alert-success'>
 			<?php
 				switch ($_GET['msg']) {
